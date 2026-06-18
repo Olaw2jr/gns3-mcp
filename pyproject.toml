@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "gns3-mcp"
+name = "gns3-mcp-server"
 version = "0.1.0"
 description = "Full-feature MCP server for the GNS3 v3 (3.0) controller REST API, with device console automation."
 readme = "README.md"
@@ -29,6 +29,7 @@ dev = ["pytest>=8", "pytest-asyncio>=0.23", "respx>=0.21", "anyio>=4"]
 
 [project.scripts]
 gns3-mcp = "gns3_mcp.server:main"
+gns3-mcp-server = "gns3_mcp.server:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/gns3_mcp"]

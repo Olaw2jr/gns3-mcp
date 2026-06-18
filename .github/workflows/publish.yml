@@ -5,7 +5,7 @@ name: Publish to PyPI
 # Actions tab (workflow_dispatch). Publishing only happens if the tests pass.
 #
 # Uses PyPI Trusted Publishing (OIDC) — no API token is stored in the repo.
-# One-time setup on PyPI: add a trusted publisher for project "gns3-mcp" with
+# One-time setup on PyPI: add a trusted publisher for project "gns3-mcp-server" with
 #   owner: Olaw2jr, repo: gns3-mcp, workflow: publish.yml, environment: pypi
 # (Register the workflow that contains the publish step — this file — even when
 # it runs as a reusable workflow.) See https://docs.pypi.org/trusted-publishers/
@@ -60,7 +60,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: pypi
-      url: https://pypi.org/p/gns3-mcp
+      url: https://pypi.org/p/gns3-mcp-server
     permissions:
       id-token: write  # required for Trusted Publishing (OIDC)
     steps:
