@@ -1,0 +1,33 @@
+name: release-please
+
+# On every push to master, release-please maintains a "release PR" that bumps the
+# version and updates CHANGELOG.md from Conventional Commits. Merging that PR creates
+# a GitHub Release and tag, which triggers the publish pipeline below.
+
+on:
+  push:
+    branches: [master]
+
+permissions: {}
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+      tag_name: ${{ steps.release.outputs.tag_name }}
+    steps:
+      - uses: googleapis/release-please-action@v4
+        id: release
+
+  publish:
+    # Build and publish to PyPI only when release-please actually cut a release.
+    needs: release-please
+    if: needs.release-please.outputs.release_created == 'true'
+    permissions:
+      contents: read
+      id-token: write
+    uses: ./.github/workflows/publish.yml

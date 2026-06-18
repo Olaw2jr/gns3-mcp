@@ -1,37 +1,54 @@
 name: Publish to PyPI
 
-# Publishes the package when a GitHub Release is published, or on a manual run.
+# Reusable publishing pipeline: test -> build -> publish.
+# Invoked by release-please.yml when a release is cut, or manually via the
+# Actions tab (workflow_dispatch). Publishing only happens if the tests pass.
+#
 # Uses PyPI Trusted Publishing (OIDC) — no API token is stored in the repo.
 # One-time setup on PyPI: add a trusted publisher for project "gns3-mcp" with
 #   owner: Olaw2jr, repo: gns3-mcp, workflow: publish.yml, environment: pypi
-# See https://docs.pypi.org/trusted-publishers/
+# (Register the workflow that contains the publish step — this file — even when
+# it runs as a reusable workflow.) See https://docs.pypi.org/trusted-publishers/
 
 on:
-  release:
-    types: [published]
+  workflow_call:
   workflow_dispatch:
 
+permissions: {}
+
 jobs:
-  build:
-    name: Build distributions
+  test:
+    name: Test (gate)
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+          cache: pip
+      - run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+      - run: python -m pytest -q
 
+  build:
+    name: Build distributions
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
       - name: Build sdist and wheel
         run: |
-          python -m pip install --upgrade build
+          python -m pip install --upgrade build twine
           python -m build
-
-      - name: Check metadata
-        run: |
-          python -m pip install --upgrade twine
           twine check dist/*
-
       - uses: actions/upload-artifact@v4
         with:
           name: dist
@@ -51,6 +68,5 @@ jobs:
         with:
           name: dist
           path: dist/
-
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
