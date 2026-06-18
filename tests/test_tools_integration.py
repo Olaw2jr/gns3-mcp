@@ -25,6 +25,8 @@ def env(monkeypatch):
 
 
 async def get_tools(read_only=False, monkeypatch=None):
+    import inspect
+
     import gns3_mcp.runtime as runtime
 
     runtime._client = None
@@ -32,7 +34,13 @@ async def get_tools(read_only=False, monkeypatch=None):
     from gns3_mcp.server import build_server
 
     mcp = build_server()
-    return await mcp.get_tools()
+    # Resolve the registered tools across FastMCP versions: prefer the public
+    # get_tools() accessor, fall back to the ToolManager's tool dict.
+    getter = getattr(mcp, "get_tools", None)
+    if callable(getter):
+        result = getter()
+        return await result if inspect.isawaitable(result) else result
+    return mcp._tool_manager._tools
 
 
 async def call(tools, name, **kwargs):
