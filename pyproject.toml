@@ -25,7 +25,7 @@ Repository = "https://github.com/Olaw2jr/gns3-mcp"
 Issues = "https://github.com/Olaw2jr/gns3-mcp/issues"
 
 [project.optional-dependencies]
-dev = ["pytest>=8", "pytest-asyncio>=0.23", "respx>=0.21", "anyio>=4"]
+dev = ["pytest>=8", "pytest-asyncio>=0.23", "respx>=0.23.1", "anyio>=4"]
 
 [project.scripts]
 gns3-mcp = "gns3_mcp.server:main"
