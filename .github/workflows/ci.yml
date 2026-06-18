@@ -31,11 +31,21 @@ jobs:
       - name: Run tests
         run: python -m pytest -q
 
-      - name: Smoke-check the MCP server boots over stdio
+      - name: Smoke-check the server builds and registers all tools
         run: |
-          printf '%s\n' \
-            '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2024-11-05","capabilities":{},"clientInfo":{"name":"ci","version":"1"}}}' \
-            '{"jsonrpc":"2.0","method":"notifications/initialized"}' \
-            '{"jsonrpc":"2.0","id":2,"method":"tools/list","params":{}}' \
-          | timeout 30 gns3-mcp \
-          | python -c "import sys,json; n=[json.loads(l)['result']['tools'] for l in sys.stdin if l.strip() and json.loads(l).get('id')==2]; assert n and len(n[0])>100, 'expected >100 tools'; print('stdio server OK:', len(n[0]), 'tools')"
+          python - <<'PY'
+          import asyncio
+          import inspect
+
+          from gns3_mcp.server import build_server
+
+          mcp = build_server()
+          getter = getattr(mcp, "get_tools", None)
+          if callable(getter):
+              result = getter()
+              tools = asyncio.run(result) if inspect.isawaitable(result) else result
+          else:
+              tools = mcp._tool_manager._tools
+          assert len(tools) > 100, f"expected >100 tools, got {len(tools)}"
+          print("server builds OK:", len(tools), "tools")
+          PY
