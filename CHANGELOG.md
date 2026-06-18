@@ -8,6 +8,18 @@ This file is maintained automatically by
 by hand — they are generated when a release PR is merged. See
 [CONTRIBUTING.md](CONTRIBUTING.md) for the release flow.
 
+## [0.1.0](https://github.com/Olaw2jr/gns3-mcp/compare/v0.1.0...v0.1.0) (2026-06-18)
+
+
+### chore
+
+* release 0.1.0 ([1555917](https://github.com/Olaw2jr/gns3-mcp/commit/1555917e3d537b3fea15dc551a4c1bd09f8d1b25))
+
+
+### Documentation
+
+* add CHANGELOG seed and Conventional Commits / release guide ([b264e6c](https://github.com/Olaw2jr/gns3-mcp/commit/b264e6ce98eab13942125d3c87a79ff077663041))
+
 ## 0.1.0
 
 Initial release.
