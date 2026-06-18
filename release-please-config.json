@@ -11,7 +11,7 @@
   ],
   "packages": {
     ".": {
-      "package-name": "gns3-mcp",
+      "package-name": "gns3-mcp-server",
       "extra-files": ["src/gns3_mcp/__init__.py"]
     }
   }

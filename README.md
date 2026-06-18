@@ -59,8 +59,11 @@ script, so install the package first (below) or adjust the command to `python -m
 ### As a standalone MCP server
 
 ```bash
-pip install -e .            # from this repo (or: pipx install gns3-mcp once published)
+pip install -e .            # from this repo (or, once published: pipx install gns3-mcp-server)
 ```
+
+The PyPI distribution is named **`gns3-mcp-server`**; it installs the `gns3-mcp`
+console script (and a `gns3-mcp-server` alias, so `uvx gns3-mcp-server` works too).
 
 Register with Claude Code:
 
