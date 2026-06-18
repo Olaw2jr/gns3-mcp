@@ -1,0 +1,15 @@
+{
+  "name": "gns3-mcp",
+  "owner": { "name": "Oscar" },
+  "metadata": {
+    "description": "GNS3 v3 controller automation for Claude.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "gns3",
+      "source": "./plugin",
+      "description": "Full-feature MCP server for the GNS3 v3 controller, with device console automation."
+    }
+  ]
+}

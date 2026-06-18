@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "gns3": {
+      "command": "gns3-mcp",
+      "args": [],
+      "env": {
+        "GNS3_BASE_URL": "${GNS3_BASE_URL}",
+        "GNS3_USERNAME": "${GNS3_USERNAME}",
+        "GNS3_PASSWORD": "${GNS3_PASSWORD}",
+        "GNS3_TOKEN": "${GNS3_TOKEN}",
+        "GNS3_READ_ONLY": "${GNS3_READ_ONLY}",
+        "GNS3_DEFAULT_PROJECT": "${GNS3_DEFAULT_PROJECT}"
+      }
+    }
+  }
+}

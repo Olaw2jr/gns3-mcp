@@ -1,0 +1,9 @@
+{
+  "name": "gns3",
+  "version": "0.1.0",
+  "description": "Drive a GNS3 v3 network-emulation controller from Claude: build topologies, manage device lifecycle, snapshot, capture packets, manage templates/computes/RBAC, and automate device CLIs over node consoles.",
+  "author": { "name": "Oscar" },
+  "keywords": ["gns3", "networking", "mcp", "automation", "labs"],
+  "mcpServers": "./.mcp.json",
+  "commands": "./commands"
+}
