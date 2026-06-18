@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "Full-feature MCP server for the GNS3 v3 (3.0) controller REST API, with device console automation."
 readme = "README.md"
 requires-python = ">=3.10"
-license = { text = "MIT" }
+license = { file = "LICENSE" }
 authors = [{ name = "Oscar" }]
 keywords = ["gns3", "mcp", "model-context-protocol", "networking", "automation"]
 dependencies = [
@@ -18,6 +18,11 @@ dependencies = [
     "pydantic>=2.7",
     "pydantic-settings>=2.3",
 ]
+
+[project.urls]
+Homepage = "https://github.com/Olaw2jr/gns3-mcp"
+Repository = "https://github.com/Olaw2jr/gns3-mcp"
+Issues = "https://github.com/Olaw2jr/gns3-mcp/issues"
 
 [project.optional-dependencies]
 dev = ["pytest>=8", "pytest-asyncio>=0.23", "respx>=0.21", "anyio>=4"]
