@@ -114,3 +114,12 @@ GNS3_LIVE=1 GNS3_BASE_URL=http://localhost:3080 \
 Architecture: a single async `GNS3Client` (`client.py`) handles login, 401 re-auth,
 pagination, and binary I/O; every tool module under `tools/` is a thin layer over it and
 exposes `register(mcp)`. `console.py` is a minimal telnet proxy for driving node consoles.
+
+## Contributing & releases
+
+Commits follow [Conventional Commits](https://www.conventionalcommits.org/) (`feat:`,
+`fix:`, `feat!:` for breaking changes), which drives automated versioning.
+[release-please](https://github.com/googleapis/release-please) opens a release PR that
+bumps the version and updates [`CHANGELOG.md`](CHANGELOG.md); merging it tags a release and
+publishes to PyPI via Trusted Publishing (after the test suite passes). Full details in
+[CONTRIBUTING.md](CONTRIBUTING.md).
